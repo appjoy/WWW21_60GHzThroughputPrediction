@@ -58,15 +58,18 @@ In this paper, we show that there is a clear region in the field-of-view (FoV) o
 
 \section{Introduction} % 1 page
 
-Over the past few years consuming video content has become increasingly popular. As of 2019, YouTube had 2 billion logged in monthly users~\cite{statista} and more than 73\% of adults in the US watched videos on YouTube~\cite{pew-research}. More recently, there has been an influx of novel types of multimedia content such as 360\degree~videos, volumetric videos and VR gaming. Apart from novel types of content, people also have novel ways to consume such content such as through a head mounted display (HMD). However, such content also has a higher demand in terms of the user's quality of experience (QoE). As we know, the network conditions between the server and the user will inevitably have variations which could cause the user watching a 360\degree~video or playing a VR game to experience a long start up time or periods of rebuffering/stalls. Such experiences can have different consequences for different types of content. For example, a user who is watching a video which keeps getting stalled may just stop watching the video while if the user is playing a VR game it could lead to more serious effects such as getting motion sickness.
+Over the past few years consuming video content has become tremendously popular. As of 2019, YouTube had 2 billion logged-in monthly users~\cite{statista} and more than 73\% of adults in the US watched videos on YouTube~\cite{pew-research}. More recently, there has been an influx of novel types of multimedia content such as 360\degree~videos, volumetric videos, and VR gaming. Users also have novel ways to consume such content, such as through a head mounted display (HMD). However, such content also has a higher demand in terms of the user's quality of experience (QoE). However, video streaming is known to be challenging; the network conditions between the server and the user inevitably have variations, which could cause a user watching a 360\degree~video or playing a VR game to experience a long start up time or periods of rebuffering/stalls. Such experiences can have different consequences for different types of content. For example, a user watching a video that keeps getting stalled may just stop watching the video while a user playing a VR game might suffer from motion sickness.
 
-To deal with such issues, adaptive bitrate (ABR) streaming has become one of the most popular techniques to stream multimedia content in recent times. Consequently, a number of adaptive streaming standards has been introduced over the years~\cite{stockhammer:mmsys2011, pantos-hls, adobe-hds, microsoft-ss}. ABR streaming monitors the network conditions and adapts the content quality to minimize the occurrences of such issues which could drastically impact the user QoE. One of the main components of adaptive bitrate streaming is the estimation of network conditions. Traditionally, most ABR systems calculated throughput estimates and thus chose a quality level based on the download speeds of the past chunks and/or playback buffer occupancy~\cite{sun:sigcomm2016, spiteri:infocom2016}. More recently, the use of machine learning to select the most appropriate quality level has also gained popularity~\cite{mao:sigcomm2017, yan:nsdi2020}.
+To deal with such issues, adaptive bitrate (ABR) streaming has become one of the most popular techniques to stream multimedia content. Consequently, a number of adaptive streaming standards has been introduced over the years~\cite{stockhammer:mmsys2011, pantos-hls, adobe-hds, microsoft-ss}. ABR streaming monitors the network conditions and adapts the content quality to minimize the occurrences of such issues, which could drastically impact the user QoE. One of the main components of adaptive bitrate streaming is the estimation of network conditions. Traditionally, most ABR systems calculate throughput estimates and choose a quality level based on the download speeds of the past chunks and/or playback buffer occupancy~\cite{sun:sigcomm2016, spiteri:infocom2016}. More recently, the use of machine learning (ML) to select the most appropriate quality level has gained significant popularity~\cite{mao:sigcomm2017, yan:nsdi2020} and ML-based ABR algorithms have been shown to outperform traditional ones.
 
-Due to the recent advancements in multimedia technology, video content is getting richer with higher resolution and better quality. However, this also means that applications that provide such content demand much more bandwidth from the underlying network. For example, most high quality VR setups today are tethered because the wireless networks of today are unable to provide the necessary capacity to enable such applications wirelessly. However, with the advent of mmWave technologies like 5G (for outdoor) and 802.11ad (for indoor) these applications can indeed go wireless. IEEE 802.11ad~\cite{80211ad} is the standard that governs the use of the 14 GHz of unlicensed spectrum around 60 GHz. Each channel at 60 GHz is 2 GHz wide and hence it promises PHY data rates of up to 6.7 Gbps which is ideal to satisfy the needs for such applications.
+Due to the recent advancements in multimedia technology, video content is getting richer with higher resolution and better quality. However, this also means that applications that provide such content demand much more bandwidth from the underlying network. For example, most high quality VR setups today are tethered because today's wireless networks are unable to provide the necessary capacity to support such applications. However, with the advent of mmWave technologies like 5G (for cellular networks) and 802.11ad (for indoor WLANs) these applications can indeed go wireless. For example, the IEEE 802.11ad wLAN standard ~\cite{80211ad} governs the use of the 14 GHz of unlicensed spectrum around 60 GHz. The standard supports 2 GHz wide channel and provides PHY data rates of up to 6.7 Gbps which is ideal to satisfy the needs for such applications.
 
-However, due to their much higher frequency of operation, 60 GHz networks have vastly different propagation characteristics from sub-6 GHz networks. Due to the high attenuation loss at 60 GHz, directional communication is needed. This makes the wireless link highly susceptible to human blockage and mobility. These unique characteristics of the 60 GHz frequency make throughput prediction a rather important and indeed challenging problem. Due to the aforementioned challenges, a user watching a 360\degree~video or playing a VR game over a 60 GHz network can experience large periods of rebuffering/stalls due to intervals of low to no 60 GHz connectivity. This may be caused due to the user moving around or rotating in such a way so as to face completely away from the access point and thus self-blocking the link. Hence, even if 60 GHz wireless is used to enable these high resolution applications, it should not be used as the standalone technology. One way to keep the rebuffering and stalls to a minimum while using 60 GHz is to use legacy sub-6 GHz WiFi, which does not suffer from these issues of blockage and mobility, as a backup. This means that there will be a drop in content quality due to the use of slower sub-6 GHz network but will still lead to better user QoE than when there are stalls.
+However, due to their much higher frequency of operation, 60 GHz networks have vastly different propagation characteristics from sub-6 GHz networks. Due to the high attenuation loss at 60 GHz, directional communication is needed. This makes the wireless link highly susceptible to human blockage and mobility. Due to these challenges, a user watching a 360\degree~video or playing a VR game over a 60 GHz network can experience large periods of rebuffering/stalls due to intervals of low to no 60 GHz connectivity. For example, the user may be moving around or rotating in such a way so as to face completely away from the access point and thus self-block the link. Hence, even if 60 GHz wireless is used to enable these high resolution applications, it cannot be used as a standalone technology. One way to keep the rebuffering and stalls to a minimum while using 60 GHz is to use legacy sub-6 GHz WiFi, which does not suffer from these issues of blockage and mobility, as a backup. %This means that there will be a drop in content quality due to the use of slower sub-6 GHz network but will still lead to better user QoE than when there are stalls. 
+These unique characteristics of the 60 GHz links make throughput prediction in 60 GHz WLANs a much more important and challenging problem that in legacy WLANs.
 
-In this work, \textit{for first time}, we study the throughput predictability in 60 GHz wireless LANs using machine learning. Throughput estimation/prediction has been studied in the past in the context of sub-6 GHz wireless networks~\cite{khan:infocom2016,song:secon2017,kajita:wmnc2015} and mobile networks~\cite{liu:globecom2015}. However there has been no previous work, to our best knowledge, which has studied throughput prediction at mmWave frequencies such as 60 GHz. There are 2 main challenges we face to conduct this study: 1) As we know, to reliably train and test any machine learning model, a significant amount of data is needed.~\cite{mao:sigcomm2017} used over 30 hours of network traces, ~\cite{yan:nsdi2020} collected data for over a million video streams, and~\cite{xu:conext2017} collected over 150 hours of video playback data through user trials. We wanted a way to collect traces in a controlled environment efficiently and in an automated way while still performing realistic mobility patterns. To this end, we mounted the smartphone on a programmable 3-axis motion controller and slider typically used by professional photographers. Using this setup we were able to collect more than 100 hours of traces while running different applications and performing various controlled and random mobility patterns. 2) Unlike previous works which make coarser predictions for ABR streaming, we study prediction at timescales as low as 10 ms. Hence, our machine learning model has to strike the right balance between being accurate as well as lightweight enough to be run on mobile devices within such short timescales.
+In this work, \textit{for first time}, we study the throughput predictability in 60 GHz wireless LANs using machine learning. In the past, throughput estimation/prediction has been studied in the context of sub-6 GHz wireless networks~\cite{khan:infocom2016,song:secon2017,kajita:wmnc2015} and mobile networks~\cite{liu:globecom2015}. However there has been no previous work, to our best knowledge, which has studied throughput prediction at mmWave frequencies such as 60 GHz. 
+
+There are 2 main challenges we face to conduct this study. First, to reliably train and test any machine learning model, a significant amount of data is needed.~\cite{mao:sigcomm2017} used over 30 hours of network traces, ~\cite{yan:nsdi2020} collected data for over a million video streams, and~\cite{xu:conext2017} collected over 150 hours of video playback data through user trials. Since 60 GHz WLANs are not widely deployed (the first 802.11ad-enabled smartphones were only launched in 2019), we cannot collect data from real networks, unlike in ~\cite{mao:sigcomm2017,yan:nsdi2020}. Also, the only 2 phones that support 802.11ad are not VR Ready and so we could not perform real VR experiments with volunteers as well. Thus, we wanted a way to collect traces in a controlled environment efficiently and in an automated way while still considering the importance of performing realistic mobility patterns. To meet this conflicting requirements, we mounted the smartphone on a programmable 3-axis motion controller and slider typically used by professional photographers. Using this setup, we were able to collect more than 100 hours of traces while running different applications and performing various controlled and random mobility patterns. The second challenge is that, unlike previous works, which make predictions only on coarse-grained timescales (in the order of a few s) for ABR video streaming, we study prediction at timescales as low as 10 ms (targeting VR applications). Hence, we need ML models that strike the right balance between being accurate as well as being lightweight enough to run on mobile devices within such short timescales.
 
 \if 0
 With this study, we aim to answer the question: Can 60 GHz throughput be predicted at various timescales and be used by latency sensitive applications for quality adaptation? We use neural networks to predict throughput using the past throughput data, 60 GHz link information as well as data from the smartphone's motion and orientation sensors. Our goal, in terms of the neural network model, is to achieve high accuracy while making sure the model is lightweight and hence can be run on hardware present on today's mobile devices. To collect a large enough data set with realistic mobility patterns to properly train and test our ML models, we mounted the smartphone on a 3-axis motion controller and slider typically used by professional photographers. Using this setup we were able to collect more than 100 hours of traces while running different applications and performing various controlled and random mobility patterns. 
@@ -110,7 +113,7 @@ To perform this adaptation, the server or client needs a way to detect the chang
 \subsection{802.11ad}
 % Basic explanation of the standard
 
-Te 802.11ad standard defines 2 GHz wide channels (an order of magnitude wider compared to legacy WiFi), which enable Gbps data rates. The standard defines 12 MCSs for data frame transmission for the single-carrier (SC) PHY that is used by all commercial-off-the-shelf (COTS) devices, yielding data rates from 385-4620 Mbps. 
+The 802.11ad standard defines 2 GHz wide channels (an order of magnitude wider compared to legacy WiFi), which enable Gbps data rates. The standard defines 12 MCSs for data frame transmission for the single-carrier (SC) PHY that is used by all commercial-off-the-shelf (COTS) devices, yielding data rates from 385-4620 Mbps. 
 
 At the MAC layer, the main difference between the IEEE 802.11ad standard compared to the standards governing legacy WiFi is the use of directional communication. Directional communication is required due to the much higher attenuation at the 60 GHz frequency band. To enable directional communication, 802.11ad devices (both APs and clients) perform Sector Level Sweeps (SLS) to train their transmit sectors. During a SLS, each device transmits a Sector Sweep (SSW) control message on each of its transmit sectors, while the other device listens omnidirectionally. Once both sides have transmitted the SSW message on all their transmit sectors, they exchange feedback messages messages indicating to the other side which of their transmit sectors resulted in the highest SNR. The standard does not define the periodicity of the SLS. COTS devices typically perform a SLS every few seconds. In addition, a SLS is triggered during data transmission in case of a missing Block ACK after the number of MAC retries is exceeded.
 
@@ -138,7 +141,16 @@ For all our experiments, we keep the phone in a Google Cardboard~\cite{cardboard
 
 In addition to the above information, we also log 60 GHz link information reported by the $\tt{wil6210}$ driver on the phone. This includes the MCS used by the AP-phone link for data transmission, link quality estimators (SQI, RSSI), and the phone's and AP's beamforming sectors. This information is logged every 20 ms.
 
-For the experiments involving mobility, we use a Cinetics Lynx 3-Axis Slider~\cite{cinetics-lynx} and attach the Google Cardboard headset to it. This motion controller and slider enables us to perform full 360\degree~rotation in the azimuth and pitch directions at a speed of up to nearly 50\degree/s. The slider allows us to move the phone in a translation motion of up to 1 m. The Lynx setup has support for the Dragonframe software~\cite{dragonframe}, which we use to program custom mobility patterns and automate the trace collection process.\Comment{Put a figure and define pitch, azimuth and slide}
+For the experiments involving mobility, we use a Cinetics Lynx 3-Axis Slider~\cite{cinetics-lynx} and attach the Google Cardboard headset to it. This motion controller and slider enables us to perform full 360\degree~rotation in the azimuth and pitch directions at a speed of up to nearly 50\degree/s. The slider allows us to move the phone in a translation motion of up to 1 m. The Lynx setup has support for the Dragonframe software~\cite{dragonframe}, which we use to program custom mobility patterns and automate the trace collection process. Fig.~\ref{fig:setup} shows this setup and the 3 axes of motion.
+
+%\Comment{Put a figure and define pitch, azimuth and slide}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.2\textwidth]{setup.png}
+    \caption{Mobility Experiments Setup}
+    \label{fig:setup}
+\end{figure}
 
 \subsection{Trace Processing}
 
@@ -153,12 +165,23 @@ We collected a total of XX hours of traces consisting of XX samples.
 \subsection{Machine Learning}
 \label{subsection: Machine Learning}
 
-We use neural networks to make throughput predictions. The neural network takes as input:
-\begin{enumerate}
-    \item The actual throughput in the past N windows $T_{t-N}, T_{t-N+1}, ..., T_{t-1}$,
-    \item Pose information in the past 1 window (azimuth, pitch),
-    \item 60 GHz link layer information in the past 1 window (MCS, transmit beamforming sector, link status, SQI, RSSI)
-\end{enumerate}
+We use neural networks to make throughput predictions. We experimented with 3 neural networks. For each network, we experimented with various configurations and picked the one that performs the best.
+
+\textbf{BP8}: a shallow fully-connected neural network with 3 hidden layers, each of 40 neurons. It takes as input the actual throughput in the past 8 windows, pose information in the past window, and link layer information in the past 1 window.
+
+\textbf{RNN8}: a recurrent neural network with 3 hidden layers, each with 20 neurons. It takes as input the actual throughput, pose information, and link layer information in the past 8 windows.
+
+\textbf{RNN20}: same as BP8, but takes information in the past 20 windows as input.
+\Comment{Do we need to explain why BP8 takes historic values of only throughput, but RNN takes historic values of all features?}
+
+Specifically, the pose information consists of azimuth and pitch. The link layer information consists of MCS, transmit beamforming sector, link status, SQI, and RSSI.
+
+% The neural network takes as input:
+% \begin{enumerate}
+%     \item The actual throughput in the past N windows $T_{t-N}, T_{t-N+1}, ..., T_{t-1}$,
+%     \item Pose information in the past 1 window (azimuth, pitch),
+%     \item 60 GHz link layer information in the past 1 window (MCS, transmit beamforming sector, link status, SQI, RSSI)
+% \end{enumerate}
 
 The neural network outputs the probability distribution of the throughput in the current window $T_{t}$. The probability distribution $P_{1}$, $P_{2}$, $P_{3}$, ..., $P_{21}$ is over 21 bins of throughput in Mbps: $B_{1}=[0,50)$, $B_{2}=[50, 150)$, $B_{3}=[150, 250)$, ..., $B_{21}=[1950, 2000]$. We calculate the expected throughput based on the probability distribution as the prediction output:
 
@@ -166,7 +189,7 @@ The neural network outputs the probability distribution of the throughput in the
 Throughput = 0 \times P_{1} + \sum_{i=2}^{20} median(B_{i}) \times P_{i} + 2000 \times P_{21}
 \end{equation}
 
-The network is a fully-connected neural network. We tested various network architectures by varying the number of hidden layers and neurons, and picked the best model to be with 3 hidden layers, each with 40 neurons.
+% The network is a fully-connected neural network. We tested various network architectures by varying the number of hidden layers and neurons, and picked the best model to be with 3 hidden layers, each with 40 neurons.
 
 \subsection{Metrics}
 We evaluate the performance of the throughput prediction model in terms of 3 metrics:
@@ -194,20 +217,20 @@ We also noticed that even within the FoV, the instantaneous throughput is not al
 
 Next, we explore the throughput predictability when the phone is static and is within the AP's FoV. The purpose is to understand how well we can predict throughput changes caused by channel variations only.
 
-We collected 5 static traces listed in Table \ref{tab: Static Traces Collected} where we place the phone at different azimuth and pitch angles with respect to the AP. We trained and evaluated a separate model on each trace. The model is described in Section \S\ref{subsection: Machine Learning}. In our experiments, the model takes the past 8 windows' throughput as input.
+We collected 5 static traces listed in Table \ref{tab: Static Traces Collected} where we place the phone at various azimuth and pitch angles with respect to the AP. We trained and evaluated a separate model on each trace. The models are described in \S\ref{subsection: Machine Learning}. %In our experiments, the model takes the past 8 windows' throughput as input.
 
 \begin{table}[h!]
 \caption{Static Traces Collected}
 \label{tab: Static Traces Collected}
 \begin{tabular}{c|c c c c}
 \toprule
-Trace \# & Azimuth & Pitch & Length & Mean Throughput \\
+Trace \# & Azimuth & Pitch & Length & Throughput (Mbps) \\
 \midrule
-Static 1 & 0\degree & 0\degree & 10hr & 1588.10Mbps \\
-Static 2 & 30\degree & 0\degree & 10hr & 1575.03Mbps \\
-Static 3 & 60\degree & 0\degree & 10hr & 1568.73Mbps \\
-Static 4 & 0\degree & 40\degree & 10hr & 1566.60Mbps \\
-Static 5 & 0\degree & -40\degree & 10hr & 1585.88Mbps \\
+Static 1 & 0\degree & 0\degree & 10hr & 1588 $\pm$ 209 \\
+Static 2 & 30\degree & 0\degree & 10hr & 1575 $\pm$ 238 \\
+Static 3 & 60\degree & 0\degree & 10hr & 1568 $\pm$ 307 \\
+Static 4 & 0\degree & 40\degree & 10hr & 1566 $\pm$ 238 \\
+Static 5 & 0\degree & -40\degree & 10hr & 1585 $\pm$ 203 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -237,15 +260,25 @@ We train 3 models (BP8, RNN8, RNN20) for each trace at each resolution, and eval
 \label{Static Conditions}
 \end{figure}
 
-\textbf{Root Mean Squared Error.} Figure \ref{subfig:static_mse} shows that the models are effective in predicting the throughput, especially at coarser timescales. At the 10 ms timescale, the models can predict throughput with RMSE of 162.5 186.9 Mbps. At the 2 s timescale, the models predict throughput with RMSE of 49.5 to 63.1 Mbps. This is because when observed at the 10 ms timescale, the throughput contains high-frequency fluctuations caused by the 802.11ad MAC. As the timescale increases, the variations get averaged out, therefore the models show better performance.
+Overall, Fig.~\ref{Static Conditions} shows that as the timescale goes from 10 ms to 200 ms the performance of all 3 models improves significantly for all 3 metrics. At timescales larger than 200 ms, the increase in model performance becomes marginal. This expectedly shows that predicting throughput at shorter time scales is more challenging due to the much higher fluctuations in throughput caused by the 802.11ad MAC. As the timescale increases, the variations get averaged out and hence the models show better performance.
+%It is worth mentioning as timescales gets larger than 400ms, the increase in model performance becomes marginal. For traces \#1 and \#4, we even noticed that there is a sweet spot around 400ms where the model performs the best.
 
-\textbf{Absolute Relative Error at 95\% Percentile.} Figure \ref{subfig:static_abs_rel_err_95} shows that the models predict throughput with 22.6\%-28.7\% absolute relative error at the 95th percentile from the 10ms timescale, to 5.3\%-8.3\% at 2s timescale.
+However, even in the worst case, at the 10 ms timescale, the RMSE is between 162 and 187 Mbps for the different models (Fig. \ref{subfig:static_mse}). Also, Figs.~\ref{subfig:static_abs_rel_err_95} and~\ref{subfig:static_perc_error_10perc} show that for the RNN20 model (the best performing model at 10 ms), 95\% of the errors have absolute relative error less than 23\% and nearly 78\% of the errors have absolute relative error less than 10\% respectively. Hence, depending on the application, it may still be possible to tolerate this level of error. At timescales 40 ms or larger, the RMSE drops to less than 100 Mbps for all 3 models while ARE95 becomes less than 10\% and PARE10 shows that more than 95\% of the predictions had less than 10\% error. Thus, all models show a sharp increase in performance from the 10 ms timescale and are overall highly accurate.
 
-\textbf{Percentage of Predictions with Absolute Relative Error below 10\%.} From Figure \ref{subfig:static_perc_error_10perc} it can be seen that, at the 10ms timescale, 70.9\%-78.0\% of the time our models make predictions with absolute relative error below 10\% . As the timescale increases to 2s, 95.4\%-97.6\% of the time the models make predictions with less than 10\% error.
+Interestingly, for the finer timescales of 10 ms and 20 ms the RNN models, especially the RNN20, outperform the BP8 model. At the larger timescales the performance gap becomes smaller with the BP8 model becoming the more accurate one.
+%At the 2 s timescale, the models predict throughput with RMSE of 49.5 to 63.1 Mbps.
 
-Interestingly, there is a big drop in RMSE and ARE95 from the 10 ms timescale to the 100-200 ms timescale. Also, the PARE10 metric has a significant jumps till the 100-200 ms timescale. From 200 ms to 2 s all the metrics are pretty similar. 
-It is worth mentioning as timescales gets larger than 400ms, the increase in model performance becomes marginal. For traces \#1 and \#4, we even noticed that there is a sweet spot around 400ms where the model performs the best.
+% \textbf{ARE95.} Figure \ref{subfig:static_abs_rel_err_95} shows that the models predict throughput with 22.6\%-28.7\% absolute relative error at the 95th percentile from the 10ms timescale, to 5.3\%-8.3\% at 2s timescale.
 
+% \textbf{PARE10.} From Figure \ref{subfig:static_perc_error_10perc} it can be seen that, at the 10ms timescale, 70.9\%-78.0\% of the time our models make predictions with absolute relative error below 10\% . As the timescale increases to 2s, 95.4\%-97.6\% of the time the models make predictions with less than 10\% error.
+
+To understand how the model performs for each trace, we picked the best model for each trace at each timescale, and calculated the RMSE. The results are shown in Figure \ref{figure: RMSE for Static Traces}.
+
+\begin{figure}[h]
+\includegraphics[width=0.45\textwidth]{figs/rmse_along_angle.pdf}
+\caption{RMSE for Static Traces}
+\label{figure: RMSE for Static Traces}
+\end{figure}
 
 \subsubsection{Feature Selection}
 As mentioned in \S\ref{subsection: Machine Learning}, the inputs to the neural network model consist of 1) The actual throughput in the past 8 windows, 2) The pose information in the past window, and 3) The link-layer states in the past window. To understand which of these features are more useful in the prediction, we perform a feature selection algorithm, described in Algorithm \ref{algorithm: Feature Selection}.
@@ -291,10 +324,11 @@ SQI & 166.52 & RSSI & 66.76 & Azimuth & 48.78 \\
 RSSI & 166.70 & Link Status & 66.85 & Link Status & 48.59 \\
 Tx Sector & 166.30 & Pitch & 66.25 & Pitch & 48.85 \\
 Link Status & 166.63 & SQI & 67.47 & SQI & 49.15 \\
-MSC & 167.99 & MCS & 69.91 & Throughput & 51.51 \\
+MCS & 167.99 & MCS & 69.91 & Throughput & 51.51 \\
 \bottomrule
 \end{tabular}
 \end{table}
+\Comment{As the features get removed, RMSE first goes down and then goes up. Does this cause confusion?}
 
 
 \subsection{Mobile Conditions}
@@ -313,7 +347,7 @@ Controlled 2 & [-60\degree,60\degree] & [0\degree,0\degree] & 40\degree/s & 10hr
 Controlled 3 & [-60\degree,60\degree] & [0\degree,0\degree] & 10\degree/s & 10hr & 1568.30Mbps \\
 Controlled 4 & [0\degree, 0\degree] & [-40\degree,40\degree] & 12\degree/s & 10hr & 1560.19Mbps \\
 Controlled 5 & [0\degree, 0\degree] & [-40\degree,40\degree] & 6\degree/s & 10hr & 1567.94Mbps \\
-Random 1 & [-60\degree,60\degree] & [-40\degree,40\degree] & 6\degree/s & 10hr & 1585.88Mbps \\
+Random 1 & [-60\degree,60\degree] & [-40\degree,40\degree] & - & 10hr & 1585.88Mbps \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -322,6 +356,23 @@ Random 1 & [-60\degree,60\degree] & [-40\degree,40\degree] & 6\degree/s & 10hr &
 We follow the same methodology as in Section \S\ref{subsubsection: Model Performance} to train 3 models (BP8, RNN8, RNN20) for each trace at each resolution.
 
 \subsection{Applications}
+
+To further understand the throughput predictability, we collected traces using 2 real applications, VR and ABR. These two application have different requirements on the timescale of throughput prediction. The results are shown in Table \ref{tab: Model Performance for Real Applications}.
+
+\begin{table}[h!]
+\caption{Model Performance for Real Applications}
+\label{tab: Model Performance for Real Applications}
+\begin{tabular}{c|c c c|c c c}
+\toprule
+ & \multicolumn{3}{c|}{VR} & \multicolumn{3}{c}{ABR}\\
+ & BP8 & RNN8 & RNN20 & BP8 & RNN8 & RNN20 \\
+\midrule
+RMSE & 156.78 & 163.65 & 163.66 & 114.54 & 115.77 & 113.87 \\
+ARE95 & 29.08\% & 28.82\% & 27.92\% & 18.15\% & 17.72\% & 17.58\% \\
+PARE10 & 72.79\% & 70.52\% & 69.24\% & 86.93\% & 86.10\% & 87.03\% \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \section{Related Work} % 1/2-1 column
 
