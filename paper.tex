@@ -192,7 +192,22 @@ To perform this adaptation, the server or client needs a way to detect the chang
 
 The 802.11ad standard defines 2 GHz wide channels (an order of magnitude wider compared to legacy WiFi), which enable Gbps data rates. The standard defines 12 MCSs for data frame transmission for the single-carrier (SC) PHY that is used by all commercial-off-the-shelf (COTS) devices, yielding data rates from 385-4620 Mbps. 
 
-At the MAC layer, the main difference between the IEEE 802.11ad standard compared to the standards governing legacy WiFi is the use of directional communication. Directional communication is required due to the much higher attenuation at the 60 GHz frequency band. To enable directional communication, 802.11ad devices (both APs and clients) perform Sector Level Sweeps (SLS) to train their transmit sectors. During a SLS, each device transmits a Sector Sweep (SSW) control message on each of its transmit sectors, while the other device listens omnidirectionally. Once both sides have transmitted the SSW message on all their transmit sectors, they exchange feedback messages messages indicating to the other side which of their transmit sectors resulted in the highest SNR. The standard does not define the periodicity of the SLS. COTS devices typically perform a SLS every few seconds. In addition, a SLS is triggered during data transmission in case of a missing Block ACK after the number of MAC retries is exceeded.
+At the MAC layer, the main difference between the IEEE 802.11ad
+standard compared to the standards governing legacy WiFi is the use of
+directional communication. Directional communication is required due
+to the much higher attenuation at the 60 GHz frequency band. To enable
+directional communication, 802.11ad devices (both APs and clients)
+perform Sector Level Sweeps (SLS) to train their transmit
+sectors. During an SLS, each device transmits a Sector Sweep (SSW)
+control message on each of its transmit sectors, while the other
+device listens omnidirectionally. Once both sides have transmitted the
+SSW message on all their transmit sectors, they exchange feedback
+messages indicating to the other side which of their transmit sectors
+resulted in the highest SNR. The standard does not define the
+periodicity of the SLS. COTS devices typically perform an SLS every few
+seconds. In addition, an SLS is triggered during data transmission in
+case of a missing Block ACK after the number of MAC retries is
+exceeded.
 
 Table~\ref{tab:apps} details the requirements of latency sensitive applications in terms of the bandwidth, latency and QoE. As we can see, there are applications like 8K VR and live video streaming which require Gbps throughputs. Since current generation WiFi is not capable of delivering those speeds, 60 GHz wireless is a prime candidate to fulfil these needs. But, due to the nature of 60 GHz wireless, throughput prediction becomes rather important as ABR schemes would find it difficult to react to the sudden throughput changes inherent at such a high frequency. Note that these throughput changes also make the prediction of throughput at 60 GHz quite challenging.\Comment{this paragraph doesn't seem to belong here}
 
