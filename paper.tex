@@ -148,10 +148,21 @@ ML models that strike the right balance between being accurate as well
 as being lightweight enough to run on mobile devices within such short
 timescales.
 
-\if 0
-With this study, we aim to answer the question: Can 60 GHz throughput be predicted at various timescales and be used by latency sensitive applications for quality adaptation? We use neural networks to predict throughput using the past throughput data, 60 GHz link information as well as data from the smartphone's motion and orientation sensors. Our goal, in terms of the neural network model, is to achieve high accuracy while making sure the model is lightweight and hence can be run on hardware present on today's mobile devices. To collect a large enough data set with realistic mobility patterns to properly train and test our ML models, we mounted the smartphone on a 3-axis motion controller and slider typically used by professional photographers. Using this setup we were able to collect more than 100 hours of traces while running different applications and performing various controlled and random mobility patterns. 
-\fi
-Our contributions and findings are summarized as follows:
+\if 0 With this study, we aim to answer the question: Can 60 GHz
+throughput be predicted at various timescales and be used by latency
+sensitive applications for quality adaptation? We use neural networks
+to predict throughput using the past throughput data, 60 GHz link
+information as well as data from the smartphone's motion and
+orientation sensors. Our goal, in terms of the neural network model,
+is to achieve high accuracy while making sure the model is lightweight
+and hence can be run on hardware present on today's mobile devices. To
+collect a large enough data set with realistic mobility patterns to
+properly train and test our ML models, we mounted the smartphone on a
+3-axis motion controller and slider typically used by professional
+photographers. Using this setup we were able to collect more than 100
+hours of traces while running different applications and performing
+various controlled and random mobility patterns.  \fi Our
+contributions and findings are summarized as follows:
 
 \begin{itemize}
     \item ???
@@ -273,7 +284,7 @@ For the experiments involving mobility, we use a Cinetics Lynx 3-Axis Slider~\ci
 
 \subsection{Trace Processing}
 
-Applications have a diverse requirement on the timescale of throughput prediction. VR applications for example, need to predict the throughput in the window of the next tens of milliseconds. On the other end of the spectrum, video streaming applications usually fetch video chunks of several seconds in length and therefore need to predict the average throughput in the window of the next few seconds. We are interested in the throughput predictability over 802.11ad at all these timescales and hence, we experiment with representative timescales of 10 ms, 20 ms, 40 ms, 100 ms, 200 ms, 400 ms, 1000 ms, and 2000 ms.
+Applications have a diverse requirement on the timescale of throughput prediction. VR applications for example, need to predict the throughput in the window of the next tens of milliseconds. On the other end of the spectrum, video streaming applications usually fetch video chunks of several seconds in length and therefore need to predict the average throughput in the window of the next few seconds. We are interested in the throughput predictability over 802.11ad at all these timescales, and hence we experiment with representative timescales of 10 ms, 20 ms, 40 ms, 100 ms, 200 ms, 400 ms, 1000 ms, and 2000 ms.
 
 To convert the throughput traces, which log throughput samples every 10 ms, to other timescales, we combine every few consecutive samples. For example, to obtain 20ms traces, every 2 adjacent data points are combined. Within each window, the throughput is averaged to produce the mean throughput in the window. For all other features, we consider the last data point in the window. This is because those features (e.g., MCS, Transmit sector) consist of categorical values, and are not meaningful when averaged. In addition, during prediction the last value in the window can more accurately reflect the up-to-date state of the feature.
 
