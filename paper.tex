@@ -290,7 +290,7 @@ To convert the throughput traces, which log throughput samples every 10 ms, to o
 
 To make a fair comparison across different timescales, we always use the same amount of data for training as well as testing: the first 15,000 data points for training, and the following 3,000 for testing.
 
-We collected a total of XX hours of traces consisting of XX samples.
+We collected a total of ?? hours of traces consisting of ?? samples.
 
 \subsection{Machine Learning}
 \label{subsection: Machine Learning}
@@ -302,7 +302,8 @@ We use neural networks to make throughput predictions. We experimented with 3 ne
 \textbf{RNN8}: a recurrent neural network with 3 hidden layers, each with 20 neurons. It takes as input the actual throughput, pose information, and link layer information in the past 8 windows.
 
 \textbf{RNN20}: same as BP8, but takes information in the past 20 windows as input.
-\Comment{Do we need to explain why BP8 takes historic values of only throughput, but RNN takes historic values of all features?}
+\comment{all three types of information??}
+\Comment{Do we need to explain why BP8 takes historic values of only throughput, but RNN takes historic values of all features? yes we should}
 
 Specifically, the pose information consists of azimuth and pitch. The link layer information consists of MCS, transmit beamforming sector, link status, SQI, and RSSI.
 
@@ -322,7 +323,7 @@ Throughput = 0 \times P_{1} + \sum_{i=2}^{20} median(B_{i}) \times P_{i} + 2000 
 % The network is a fully-connected neural network. We tested various network architectures by varying the number of hidden layers and neurons, and picked the best model to be with 3 hidden layers, each with 40 neurons.
 
 \subsection{Metrics}
-We evaluate the performance of the throughput prediction model in terms of 3 metrics:
+We evaluate the performance of each throughput prediction model in terms of 3 metrics:
 
 \begin{enumerate}
     \item The root mean squared error (RMSE) between the prediction and the actual throughput.
