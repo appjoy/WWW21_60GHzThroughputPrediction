@@ -181,11 +181,28 @@ Live streaming                        & 4K & Up to 1.8 Gbps & 33 ms (30 fps)    
 % Need throughput prediction to do adaptation
 % to maintain QoE
 % Table with BW, Latency, QoE requirements
-Applications such as VR, 360\degree~video streaming, live video streaming need to maintain a certain latency in order to provide the user with an acceptable quality of experience (QoE). Table~\ref{tab:apps} lists the requirements for these applications in terms of bandwidth, latency and QoE.
+
+Applications such as VR, 360\degree~video streaming, and live video
+streaming need to maintain a certain latency in order to provide the
+user with an acceptable quality of experience
+(QoE). Table~\ref{tab:apps} lists the requirements for these
+applications in terms of bandwidth, latency and QoE.
 
 Network conditions between the server and the client will inevitably have some variations. Thus, for an application to maintain the required latency (and in turn QoE), it is necessary to adapt to these evolving network conditions. Most applications do this in the form of quality/bitrate adaptation.
 
 To perform this adaptation, the server or client needs a way to detect the change in network capacity and react to it. In HTTP-DASH, the client estimates the available bandwidth and requests the next chunk based on that estimate~\cite{stockhammer:mmsys2011}. Most ABR clients use the download rates of the past ABR chunks to get this estimate~\cite{bentaleb:cst2019}.
+
+Table~\ref{tab:apps} details the requirements of latency sensitive
+applications in terms of the bandwidth, latency and QoE. As we can
+see, there are applications like 8K VR and live video streaming which
+require Gbps throughputs. Since the current generation of WiFi is not
+capable of delivering those speeds, 60 GHz wireless is a prime
+candidate to fulfil these needs. But, due to the nature of 60 GHz
+wireless, throughput prediction becomes rather important as ABR
+schemes would find it difficult to react to the sudden throughput
+changes inherent at such a high frequency. Note that these throughput
+changes also make the prediction of throughput at 60 GHz quite
+challenging.\Comment{this paragraph doesn't seem to belong here?}
 
 \subsection{802.11ad}
 % Basic explanation of the standard
@@ -209,7 +226,6 @@ seconds. In addition, an SLS is triggered during data transmission in
 case of a missing Block ACK after the number of MAC retries is
 exceeded.
 
-Table~\ref{tab:apps} details the requirements of latency sensitive applications in terms of the bandwidth, latency and QoE. As we can see, there are applications like 8K VR and live video streaming which require Gbps throughputs. Since current generation WiFi is not capable of delivering those speeds, 60 GHz wireless is a prime candidate to fulfil these needs. But, due to the nature of 60 GHz wireless, throughput prediction becomes rather important as ABR schemes would find it difficult to react to the sudden throughput changes inherent at such a high frequency. Note that these throughput changes also make the prediction of throughput at 60 GHz quite challenging.\Comment{this paragraph doesn't seem to belong here}
 
 \section{Experimental Methodology} % 1 page
 
