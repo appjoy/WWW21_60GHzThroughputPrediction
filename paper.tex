@@ -336,11 +336,34 @@ To understand which input features are the most useful for a high prediction acc
 \section{Results} % 4 pages
 \label{section: Results}
 
-In this section, we present the results using our neural network model moving from simpler to more realistic but also more complex scenarios. We consider four types of scenarios: (i) static scenarios, where the phone is fixed at a given azimuth and pitch at a distance of 4 m in front of the AP, (ii) controlled mobility scenarios, where the phone moves along one dimension (azimuth, pitch, or slide) at a given speed keeping the other two dimensions constant, (iii) random mobility scenarios, where the phone simultaneously moves along all three dimensions at different speeds, and (v) real applications scenarios, where we use 2 real application traces -- VR and ABR video streaming -- instead of backlogged TCP traffic generate by nuttcp, under random mobility. 
+In this section, we present the results using our neural network model
+moving from simpler to more realistic but also more complex
+scenarios. We consider four types of scenarios: (i) {\em static} scenarios,
+where the phone is fixed at a given azimuth and pitch at a distance of
+4 m in front of the AP, (ii) {\em controlled mobility} scenarios, where the
+phone moves along one dimension (azimuth, pitch, or slide) at a given
+speed keeping the other two dimensions constant, (iii) {\em random mobility}
+scenarios, where the phone simultaneously moves along all three
+dimensions at different speeds, and (v) real applications scenarios,
+where we use 2 real application traces -- VR and ABR video streaming
+-- instead of backlogged TCP traffic generate by nuttcp, under random
+mobility.
 
 \subsection{Impact of Field of View (FoV)}
 
-We first analyze the impact of the phone staying within the AP's field of view (FoV). The phone faces the AP from a distance of 4 meters, and we rotate the phone to change its azimuth with respect to the AP. Fig.~\ref{} plots the throughput at the phone when the phone is rotated to the different angles. Our experiments show that when the azimuth is within [-75\degree, 75\degree], the average throughput is always $\sim$1.5 - 1.6 Gbps. Once the azimuth moves outside this region, the throughput quickly drops to 0, meaning that the AP fails to find a stable transmit sector at this angle as the phone's omnidirectional receive beam is out of the FoV of the AP. This agrees with the findings by the authors of~\cite{wei:mobicom2017}. Following this, in the rest of the paper we only focus on predicting throughput when the phone is within the AP's FoV.
+We first analyze the impact of the phone staying within the AP's field
+of view (FoV). The phone faces the AP from a distance of 4 meters, and
+we rotate the phone to change its azimuth with respect to the
+AP. Fig.~\ref{???} plots the throughput at the phone when the phone is
+rotated to different angles. Our experiments show that when the
+azimuth is within [-75\degree, 75\degree], the average throughput is
+always $\sim$1.5 - 1.6 Gbps. Once the azimuth moves outside this
+region, the throughput quickly drops to 0, meaning that the AP fails
+to find a stable transmit sector at this angle as the phone's
+omnidirectional receive beam is out of the FoV of the AP. This agrees
+with the findings by the authors of~\cite{wei:mobicom2017}. Following
+this, in the rest of the paper, we only focus on predicting throughput
+when the phone is within the AP's FoV.
 
 We also noticed that even within the FoV, the instantaneous throughput is not always stable, but varies between 1.2 Gbps and 1.6 Gbps, which is caused by the 802.11ad MAC layer mechanisms such as the beacons sent out by the AP every 100 ms or beamforming between the phone and the AP. Hence, these variations are unavoidable when using an 802.11ad link.
 
