@@ -248,11 +248,11 @@ We use a Netgear Nighthawk X10 Smart WiFi router~\cite{netgear-x10} and an ASUS 
 For all our experiments, we keep the phone in a Google
 Cardboard~\cite{cardboard} headset at a distance of 4 m from the
 AP. We used nuttcp~\cite{nuttcp} to generate TCP traffic and log
-throughput every 10 ms. We developed an Android application which runs
+throughput every 10 ms. We developed an Android application that runs
 on the phone and uses the Android Sensor API~\cite{android-sensor} to
 log information from the
 $\tt{TYPE\_ROTATION\_VECTOR}$/$\tt{TYPE\_GAME\_ROTATION\_VECTOR}$. These
-sensors report the angle (in radians, which we convert to degrees) the
+sensors report the angle (in radians, which we convert to degrees) that the
 phone has moved in the azimuth, pitch, or roll directions. We also log
 data from the accelerometer ($\tt{TYPE\_ACCELEROMETER}$) sensor, which
 gives the acceleration of the phone (in m/s$^2$) in the x-, y-, and
