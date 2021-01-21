@@ -426,7 +426,7 @@ Interestingly, for the finer timescales of 10 ms and 20 ms the RNN models, espec
 
 % \textbf{PARE10.} From Figure \ref{subfig:static_perc_error_10perc} it can be seen that, at the 10ms timescale, 70.9\%-78.0\% of the time our models make predictions with absolute relative error below 10\% . As the timescale increases to 2s, 95.4\%-97.6\% of the time the models make predictions with less than 10\% error.
 
-To understand how the model performs for each trace, we picked the best model for each trace at each timescale, and calculated the RMSE. The results are shown in Figure \ref{figure: RMSE for Static Traces}.
+To understand how the model performs for each trace, we picked the best model for each trace at each timescale, and calculated the RMSE. The results are shown in Figure~\ref{figure: RMSE for Static Traces}. \comment{We observe that ???}
 
 \begin{figure}[h]
 \includegraphics[width=0.45\textwidth]{figs/rmse_along_angle.pdf}
@@ -461,7 +461,17 @@ As mentioned in \S\ref{subsection: Machine Learning}, the inputs to the neural n
 \end{algorithmic}
 \end{algorithm}
 
-We start with all $N$ features. For each of the feature, we temporarily remove it from the input, and train a model using the remaining $N-1$ features. This procedure identifies the least useful feature among $N$ features, and we permanently remove this feature from the input. Then, we iterative perform the same procedure on the rest $N-1$ features, until all features have been removed. Effectively, this algorithm ranks the features by usefulness. The result of our experiments is shown in Table \ref{tab: Static Feature Selection}.
+We start with all $N$ features. For each of the features, we
+temporarily remove it from the input, and train a model using the
+remaining $N-1$ features. We then compare the resulting models
+and identify the least useful
+feature among $N$ features as the one after removing which results in the model
+with the least prediction accuracy reduction. We permanently remove this feature
+from the input, and then iteratively repeat the procedure on the
+remaining $N-1$ features, until all features have been
+removed. Effectively, this algorithm ranks the features by
+usefulness. The result of our experiments is shown in Table \ref{tab:
+  Static Feature Selection}.
 
 \begin{table}[h]
 \caption{Features Selection for Static Traces}
