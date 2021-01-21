@@ -122,7 +122,31 @@ These unique characteristics of the 60 GHz links make throughput prediction in 6
 
 In this work, {for the first time}, we study the throughput predictability in 60 GHz wireless LANs using machine learning. In the past, throughput estimation/prediction has been studied in the context of sub-6 GHz wireless networks~\cite{khan:infocom2016,song:secon2017,kajita:wmnc2015} and mobile networks~\cite{liu:globecom2015}. However there has been no previous work, to our best knowledge, that has studied throughput prediction at mmWave frequencies such as 60 GHz. 
 
-There are 2 main challenges we face to conduct this study. First, to reliably train and test any machine learning model, a significant amount of data is needed.~\cite{mao:sigcomm2017} used over 30 hours of network traces, ~\cite{yan:nsdi2020} collected data for over a million video streams, and~\cite{xu:conext2017} collected over 150 hours of video playback data through user trials. Since 60 GHz WLANs are not widely deployed (the first 802.11ad-enabled smartphones were only launched in 2019), we cannot collect data from real networks, unlike in ~\cite{mao:sigcomm2017,yan:nsdi2020}. Also, the only 2 phones that support 802.11ad are not VR Ready and so we could not perform real VR experiments with volunteers as well. Thus, we wanted a way to collect traces in a controlled environment efficiently and in an automated way while still considering the importance of performing realistic mobility patterns. To meet this conflicting requirements, we mounted the smartphone on a programmable 3-axis motion controller and slider typically used by professional photographers. Using this setup, we were able to collect more than 100 hours of traces while running different applications and performing various controlled and random mobility patterns. The second challenge is that, unlike previous works, which make predictions only on coarse-grained timescales (in the order of a few s) for ABR video streaming, we study prediction at timescales as low as 10 ms (targeting VR applications). Hence, we need ML models that strike the right balance between being accurate as well as being lightweight enough to run on mobile devices within such short timescales.
+There are 2 main challenges we face to conduct this study. First, to
+reliably train and test any machine learning model, a significant
+amount of data is needed.~\cite{mao:sigcomm2017} used over 30 hours of
+network traces, ~\cite{yan:nsdi2020} collected data for over a million
+video streams, and~\cite{xu:conext2017} collected over 150 hours of
+video playback data through user trials. Since 60 GHz WLANs are not
+widely deployed (the first 802.11ad-enabled smartphones were only
+launched in 2019), we cannot collect data from real networks, unlike
+in ~\cite{mao:sigcomm2017,yan:nsdi2020}. Also, the only 2 phones that
+support 802.11ad are not VR Ready and so we could not perform real VR
+experiments with volunteers. Thus, we wanted a way to collect
+traces in a controlled environment efficiently and in an automated way
+while still considering the importance of performing realistic
+mobility patterns. To meet these conflicting requirements, we mounted
+the smartphone on a programmable 3-axis motion controller and slider
+typically used by professional photographers. Using this setup, we
+were able to collect more than 100 hours of traces while running
+different applications and performing various controlled and random
+mobility patterns. The second challenge is that, unlike previous
+works, which make predictions only on coarse-grained timescales (in
+the order of a few seconds) for ABR video streaming, we study prediction at
+timescales as low as 10 ms (targeting VR applications). Hence, we need
+ML models that strike the right balance between being accurate as well
+as being lightweight enough to run on mobile devices within such short
+timescales.
 
 \if 0
 With this study, we aim to answer the question: Can 60 GHz throughput be predicted at various timescales and be used by latency sensitive applications for quality adaptation? We use neural networks to predict throughput using the past throughput data, 60 GHz link information as well as data from the smartphone's motion and orientation sensors. Our goal, in terms of the neural network model, is to achieve high accuracy while making sure the model is lightweight and hence can be run on hardware present on today's mobile devices. To collect a large enough data set with realistic mobility patterns to properly train and test our ML models, we mounted the smartphone on a 3-axis motion controller and slider typically used by professional photographers. Using this setup we were able to collect more than 100 hours of traces while running different applications and performing various controlled and random mobility patterns. 
@@ -130,7 +154,7 @@ With this study, we aim to answer the question: Can 60 GHz throughput be predict
 Our contributions and findings are summarized as follows:
 
 \begin{itemize}
-    \item 
+    \item ???
 \end{itemize}
 
 \section{Motivation} % 1 page
