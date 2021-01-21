@@ -543,7 +543,29 @@ PARE10 & 72.79\% & 70.52\% & 69.24\% & 86.93\% & 86.10\% & 87.03\% \\
 \section{Related Work} % 1/2-1 column
 
 % Throughput prediction
-There have been a few works in the past that have studied throughput prediction. However most of the past works~\cite{mirza:sigmetrics2007, bui:ewc2014, liu:globecom2015} did not look at using it for latency sensitive applications which require throughput prediction at fine grained time scales.~\cite{sun:sigcomm2016} is one of the works which predicts throughput for video bitrate selection using a data-driven approach. However, they predict throughput for an epoch of 6 seconds whereas in this work we make predictions for a timescale of up to 2 seconds.~\cite{liu:atc2020} performs throughput estimation at a finer grained resolution to estimate the available bandwidth for each user as well as the total available bandwidth from the AP's perspective. To enable this, the authors of~\cite{liu:atc2020} needed to modify the AP's firmware. In our work however the prediction is done on the client side hence we don't need to perform any modifications on the AP.~\cite{liu:globecom2015} performed a study of various throughput prediction algorithms for mobile networks and found that all of them have the highest accuracy when predicting at a timescale of 100-300 seconds which is again too large of a timescale when considering the type of applications we look at in this work.
+Network throughput prediction has been studied in the past. However most of
+the past works~\cite{mirza:sigmetrics2007, bui:ewc2014,
+  liu:globecom2015} did not look at using it for latency sensitive
+applications which require throughput prediction at fine grained time
+scales.
+\cite{sun:sigcomm2016} predicts
+throughput for video bitrate selection using a data-driven
+approach. However, the work predicts throughput for an epoch of 6 seconds,
+whereas our work studes making predictions for a timescale between 10 ms to 2
+seconds.
+\cite{liu:atc2020} performs throughput estimation at a finer
+grained resolution \comment{how fine scale???}
+to estimate the available bandwidth for each user
+as well as the total available bandwidth from the AP's perspective. To
+do this, the authors had to modify the
+AP's firmware. In contrast in our work, the prediction is done on the
+client side hence we do not need to perform any modifications on the
+AP.
+\cite{liu:globecom2015} studied various throughput
+prediction algorithms for mobile networks and found that 
+the highest accuracy is achieved when predicting at a timescale of 100-300
+seconds which is again too large of a timescale for the
+type of applications we consider in this work.
 
 % mmWave
 \cite{wei:mobicom2017,zhou:infocom2018} are a couple of the works which utlize 60 GHz wireless to enable applications such as VR, AR, and Miracast.~\cite{wei:mobicom2017} proposes the idea of having multiple APs and as the client device moves, it can keep switching to a different AP that works best for that position. This work showed that as the client moves out of the AP's FoV, the client's performance drops drastically and often loses connectivity. We also have a similar finding in this work. However, they did not look at the time-varying nature of throughput that we observed even when the phone is within the AP's FoV.~\cite{zhou:infocom2018} found that typical VR/Miracast motion can be rather unpredictable and hence lead to large and sudden drops in signal quality. Thus, they did not try to predict the throughput and instead devised a way to reduce the search space for 60 GHz beamforming.
