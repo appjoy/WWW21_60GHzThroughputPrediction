@@ -45,7 +45,14 @@
 
 In the near future, high quality VR and video streaming at 4K/8K resolutions will require Gigabit throughput to maintain a high user quality of experience (QoE). IEEE 802.11ad, which standardizes the 14 GHz of unlicensed spectrum around 60 GHz, is a prime candidate to fulfil these demands wirelessly. To maintain QoE, applications need to adapt to the ever changing network conditions and hence perform quality adaptation. One key component of quality adaptation is throughput prediction. At 60 GHz, due to the much higher frequency, the throughput can vary sharply due to blockage and mobility. Hence, the problem of predicting throughput becomes rather challenging.
 
-In this paper, we show that there is a clear region in the field-of-view (FoV) outside which 60 GHz does not work. We also show that within this FoV, throughput may not always be stable as has been previously claimed. Using neural networks, we predict the throughput for the 60 GHz link at different timescales, from 10 ms (suitable for VR) up to 2 s (suitable for ABR streaming). We show that we can very accurately predict the throughput for various realistic scenarios across different time scales.
+In this paper, we show that there is a clear region in the
+field-of-view (FoV) outside which 60 GHz does not work. We also show
+that within this FoV, throughput may not always be stable as has been
+previously claimed. Using neural networks, we predict the throughput
+for the 60 GHz link at different timescales, from 10 ms (suitable for
+VR) up to 2 s (suitable for ABR streaming). We show that we can 
+accurately predict the throughput for various realistic scenarios
+across different time scales.
 
 \end{abstract}
 
@@ -137,7 +144,18 @@ We use a Netgear Nighthawk X10 Smart WiFi router~\cite{netgear-x10} and an ASUS 
 
 \subsection{Methodology}
 
-For all our experiments, we keep the phone in a Google Cardboard~\cite{cardboard} headset at a distance of 4 m from the AP. We used nuttcp~\cite{nuttcp} to generate TCP traffic and log throughput every 10 ms. We developed an Android application which runs on the phone and uses the Android Sensor API~\cite{android-sensor} to log information from the $\tt{TYPE\_ROTATION\_VECTOR}$/$\tt{TYPE\_GAME\_ROTATION\_VECTOR}$. These sensors report the angle (in radians, which we convert to degrees) the phone has moved in the azimuth, pitch, or roll directions. We also log data from the accelerometer ($\tt{TYPE\_ACCELEROMETER}$) sensor, which gives the acceleration of the phone (in m/s$^2$) in the x-, y-, and z-axis. Data from both the sensors are logged every 10 ms.
+For all our experiments, we keep the phone in a Google
+Cardboard~\cite{cardboard} headset at a distance of 4 m from the
+AP. We used nuttcp~\cite{nuttcp} to generate TCP traffic and log
+throughput every 10 ms. We developed an Android application which runs
+on the phone and uses the Android Sensor API~\cite{android-sensor} to
+log information from the
+$\tt{TYPE\_ROTATION\_VECTOR}$/$\tt{TYPE\_GAME\_ROTATION\_VECTOR}$. These
+sensors report the angle (in radians, which we convert to degrees) the
+phone has moved in the azimuth, pitch, or roll directions. We also log
+data from the accelerometer ($\tt{TYPE\_ACCELEROMETER}$) sensor, which
+gives the acceleration of the phone (in m/s$^2$) in the x-, y-, and
+z-axis. Data from both the sensors are logged every 10 ms.
 
 In addition to the above information, we also log 60 GHz link information reported by the $\tt{wil6210}$ driver on the phone. This includes the MCS used by the AP-phone link for data transmission, link quality estimators (SQI, RSSI), and the phone's and AP's beamforming sectors. This information is logged every 20 ms.
 
